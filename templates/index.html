@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block body %}
+    <header class="bg-primary bg-gradient text-white">
+        <div class="container px-4 text-center">
+            <h1 class="fw-bolder">The Weather Forecast App</h1>
+            <p class="lead">Get a seven day forecast for anywhere in world...</p>
+            <form action="{{ url_for('home') }}" method="POST">
+                <input class="form-control" name="city_country" type="text" placeholder="Enter country or city"><br><br>
+                <input class="btn btn-lg btn-light" type="submit" value="Check Weather">
+            </form>
+            {% if error %}
+                <span class="red-alert">{{ error }}</span>
+            {% endif %}
+        </div>
+    </header>
+<section id="about">
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-8 border border-info rounded-4">
+                <span class="small">Your location:</span>
+                <h3 class="text-center">{{ location }}</h3>
+                <h5 class="text-center">Current weather:</h5>
+                <h6 class="text-center">{{ w_data["description"] }}</h6>
+                    <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Today</th>
+                            <th>Temperature</th>
+                            <th>Humidity</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center">{{ w_data["forecast"][0]["day"] }} - {{ w_data["forecast"][0]["date"] }}</td>
+                            <td>{{ w_data["current"]["temp"] }}</td>
+                            <td>{{ w_data["current"]["humidity"] }}</td>
+                            <td><img width="35" src="{{ w_data['forecast'][0]['icon'] }}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+
