@@ -1,4 +1,3 @@
-import socket
 import unittest
 import requests
 import time
@@ -12,9 +11,16 @@ from selenium.webdriver.chrome.service import Service
 
 class InputTests(unittest.TestCase):
 
+    def send_request(self, test_input):
+        self.driver.get(self.APP_ADDR)
+        # find location search input bar and send request
+        location_input = self.driver.find_element(By.NAME, "city_country")
+        location_input.send_keys(test_input)
+        location_input.send_keys(Keys.RETURN)
+
     def setUp(self):
         ip = requests.get('https://api.ipify.org').content.decode('utf8')
-        self.APP_ADDR = f"http://{ip}/"
+        self.APP_ADDR = f"http://{ip}/home"
         self.TEST_LOCATION = "London"
         self.BAD_INPUT = "kasdjh92834reghiuroo34234"
         self.options = webdriver.ChromeOptions()
@@ -31,27 +37,19 @@ class InputTests(unittest.TestCase):
 
     def test_positive(self):
         """Asserts a response page has loaded for a good location input"""
-
-        self.driver.get(self.APP_ADDR)
-        # find location search input bar and send request
-        location_input = self.driver.find_element(By.NAME, "city_country")
-        location_input.send_keys(self.TEST_LOCATION)
-        location_input.send_keys(Keys.RETURN)
+        self.send_request(self.TEST_LOCATION)
 
         # wait for location search response
         time.sleep(1.5)
 
+        # If location is good it will appear in title
         result_title = self.driver.current_url
         self.assertIn(self.TEST_LOCATION, result_title, "Possitive input test - not passed")
         self.driver.close()
 
     def test_negative(self):
         """Assert that a wrong location input returns to home"""
-        self.driver.get(self.APP_ADDR)
-        # find location search input bar and send request
-        location_input = self.driver.find_element(By.NAME, "city_country")
-        location_input.send_keys(self.BAD_INPUT)
-        location_input.send_keys(Keys.RETURN)
+        self.send_request(self.BAD_INPUT)
 
         # wait for location search response
         time.sleep(1.5)

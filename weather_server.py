@@ -71,7 +71,7 @@ def history():
     try:
         with open("./history/weather_history.json", 'r') as json_file:
             history_data = json.load(json_file)
-    except except FileNotFoundError:
+    except FileNotFoundError:
         history_data = [{"search_time": None, "country_city": None, "forecast": [{"night_temp": 0, "day_temp": 0}]}]
     return render_template("history.html", history=history_data, bgcolor=BG_COLOR)
 
