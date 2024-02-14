@@ -1,0 +1,14 @@
+
+*.pyc
+*.pyo
+.DS_Store
+.env
+.git/
+.gitignore
+.vscode/
+.idea/
+
+web_app_unit-testing.py
+README.md
+
+
