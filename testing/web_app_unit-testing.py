@@ -6,7 +6,6 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
 
 
 class InputTests(unittest.TestCase):
@@ -19,8 +18,10 @@ class InputTests(unittest.TestCase):
         location_input.send_keys(Keys.RETURN)
 
     def setUp(self):
-        ip = requests.get('https://api.ipify.org').content.decode('utf8')
-        self.APP_ADDR = f"http://{ip}/home"
+        host_ip = requests.get('https://api.ipify.org').content.decode('utf8')
+        self.APP_ADDR = f"http://{host_ip}/home"
+        if requests.get(self.APP_ADDR, timeout=7).status_code != 200:
+            self.APP_ADDR = "http://127.0.0.1:8080/home"
         self.TEST_LOCATION = "London"
         self.BAD_INPUT = "kasdjh92834reghiuroo34234"
         self.options = webdriver.ChromeOptions()
