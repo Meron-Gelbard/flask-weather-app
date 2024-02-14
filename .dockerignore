@@ -7,8 +7,6 @@
 .gitignore
 .vscode/
 .idea/
+testing/
 
-web_app_unit-testing.py
 README.md
-
-
