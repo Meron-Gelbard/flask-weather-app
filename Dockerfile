@@ -4,7 +4,7 @@ WORKDIR /weather_app
 COPY . /weather_app
 
 RUN pip install -r requirements.txt && \
-pip install gunicorn
+pip install gunicorn && mkdir history
 
 EXPOSE 8080
 
