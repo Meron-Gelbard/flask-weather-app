@@ -8,5 +8,6 @@
 .vscode/
 .idea/
 testing/
+!history/
 
 README.md
