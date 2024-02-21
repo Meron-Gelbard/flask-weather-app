@@ -5,9 +5,7 @@
 .env
 .git/
 .gitignore
-.vscode/
 .idea/
 testing/
-!history/
 
 README.md

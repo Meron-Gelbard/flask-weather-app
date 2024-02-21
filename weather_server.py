@@ -14,15 +14,15 @@ def home_redirect():
 
 
 def update_history_json(new_data):
-    if not os.path.exists("./history/weather_history.json"):
+    if not os.path.exists("history/weather_history.json"):
         history_data = [new_data]
-        with open("./history/weather_history.json", 'w') as history_json:
+        with open("history/weather_history.json", 'w') as history_json:
             json.dump(history_data, history_json, indent=2)
     else:
-        with open("./history/weather_history.json", 'r') as history_json:
+        with open("history/weather_history.json", 'r') as history_json:
             history_data = json.load(history_json)
         history_data.append(new_data)
-        with open("./history/weather_history.json", 'w') as history_json:
+        with open("history/weather_history.json", 'w') as history_json:
             json.dump(history_data, history_json, indent=2)
 
 
@@ -74,7 +74,7 @@ def weather_result(country_city):
 @app.route("/history", methods=['GET'])
 def history():
     try:
-        with open("./history/weather_history.json", 'r') as json_file:
+        with open("history/weather_history.json", 'r') as json_file:
             history_data = json.load(json_file)
     except FileNotFoundError:
         history_data = [{"search_time": None, "country_city": None, "forecast": [{"night_temp": 0, "day_temp": 0}]}]
@@ -84,7 +84,7 @@ def history():
 @app.route('/download_history/<index>', methods=['GET'])
 def download_json(index):
 
-    with open("./history/weather_history.json", 'r') as json_file:
+    with open("history/weather_history.json", 'r') as json_file:
         history_data = json.load(json_file)
 
     json_str = jsonify(history_data[int(index)])
