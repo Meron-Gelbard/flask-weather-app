@@ -8,6 +8,11 @@ app.secret_key = "secret..."  # Needed for the use of session variables.
 BG_COLOR = os.getenv("BG_COLOR")
 
 
+@app.route("/", methods=['GET'])
+def home_redirect():
+    return redirect("/home")
+
+
 def update_history_json(new_data):
     if not os.path.exists("./history/weather_history.json"):
         history_data = [new_data]
