@@ -50,7 +50,7 @@ def parse_weather_data(country_city):
 def get_current_location():
     """Gets client's current location based on I.P using a location API"""
 
-    location_api_key = "f6af83bf995349fabcfc8edac805cd34"
+    location_api_key = "xxxxxxxxcc"
     response = requests.get(f"https://ipgeolocation.abstractapi.com/v1/?api_key={location_api_key}").json()
     try:
         return response["city"]
